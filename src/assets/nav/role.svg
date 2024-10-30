@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="no"?>
+<svg id="Icon7" width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="max-width: 100%; max-height: 100%;">
+<g clip-path="url(#clip0_2271_4476)">
+<rect width="24.2222" height="24" transform="translate(0.333496)" fill="#465045" stroke-dasharray="0,0,0,96.44439697265625"><animate attributeType="XML" attributeName="stroke-dasharray" repeatCount="1" dur="2.5s" values="0,0,0,96.44439697265625; 
+          0,48.222198486328125,48.222198486328125,0; 
+          96.44439697265625,0,0,0" keyTimes="0; 0.5; 1" fill="freeze"></animate></rect>
+<path d="M9.94874 8.92311C9.94536 10.5021 11.6525 11.4926 13.0217 10.706C13.6598 10.3395 14.0526 9.65905 14.051 8.92311C14.0544 7.34418 12.3472 6.35361 10.9781 7.14018C10.34 7.50683 9.94714 8.18718 9.94874 8.92311Z" stroke="white" stroke-width="1.5" stroke-dasharray="0,0,0,12.91218376159668"><animate attributeType="XML" attributeName="stroke-dasharray" repeatCount="1" dur="2.5s" values="0,0,0,12.91218376159668; 
+          0,6.45609188079834,6.45609188079834,0; 
+          12.91218376159668,0,0,0" keyTimes="0; 0.5; 1" fill="freeze"></animate></path>
+<path d="M16.1021 15.0769C16.1021 16.2097 16.1021 17.128 11.9998 17.128C7.89746 17.128 7.89746 16.2097 7.89746 15.0769C7.89746 13.9441 9.73412 13.0256 11.9998 13.0256C14.2654 13.0256 16.1021 13.944 16.1021 15.0769Z" stroke="white" stroke-width="1.5" stroke-dasharray="0,0,0,20.531770706176758"><animate attributeType="XML" attributeName="stroke-dasharray" repeatCount="1" dur="2.5s" values="0,0,0,20.531770706176758; 
+          0,10.265885353088379,10.265885353088379,0; 
+          20.531770706176758,0,0,0" keyTimes="0; 0.5; 1" fill="freeze"></animate></path>
+<path d="M2.76953 10.3761C2.76953 7.0967 2.76953 5.45702 3.15672 4.90539C3.54391 4.35377 5.08563 3.82595 8.16916 2.77052L8.75659 2.56942C10.3639 2.0192 11.1677 1.74414 11.9998 1.74414C12.8319 1.74414 13.6356 2.0192 15.243 2.56942L15.8304 2.77052C18.9139 3.82595 20.4557 4.35377 20.8428 4.90539C21.23 5.45702 21.23 7.0967 21.23 10.3761V11.9911C21.23 14.56 20.3718 16.5416 19.1789 18.055M2.96734 14.0511C3.84672 18.4595 7.46303 20.7306 9.84456 21.7709C10.5844 22.0941 10.9544 22.2557 11.9998 22.2557C13.0452 22.2557 13.4151 22.0941 14.1549 21.7709C14.7479 21.5119 15.4174 21.1766 16.1021 20.751" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="0,0,0,55.55366516113281"><animate attributeType="XML" attributeName="stroke-dasharray" repeatCount="1" dur="2.5s" values="0,0,0,55.55366516113281; 
+          0,27.776832580566406,27.776832580566406,0; 
+          55.55366516113281,0,0,0" keyTimes="0; 0.5; 1" fill="freeze"></animate></path>
+</g>
+<defs>
+<clipPath id="clip0_2271_4476">
+<rect width="24.2222" height="24" fill="white" transform="translate(0.333496)" stroke-dasharray="0,0,0,96.44439697265625"><animate attributeType="XML" attributeName="stroke-dasharray" repeatCount="1" dur="2.5s" values="0,0,0,96.44439697265625; 
+          0,48.222198486328125,48.222198486328125,0; 
+          96.44439697265625,0,0,0" keyTimes="0; 0.5; 1" fill="freeze"></animate></rect>
+</clipPath>
+</defs>
+</svg>

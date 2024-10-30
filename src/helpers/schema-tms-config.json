@@ -1,0 +1,214 @@
+{
+    "terminal_configuration": {
+        "_v": true,
+        "_l": false,
+        "language_and_terminal_mode": {
+            "_v": false,
+            "_l": false,
+            "terminal_language": {
+                "english": {
+                    "value": true
+                },
+                "french": {
+                    "value": false
+                }
+            },
+            "terminal_mode": {
+                "manual_entry": {
+                    "value": true
+                },
+                "demo_mode": {
+                    "value": false
+                }
+            }
+        },
+        "clerk_server_maintenance": {
+            "_v": true,
+            "_l": false,
+            "clerk_server_list": {
+                "name": {
+                    "value": ""
+                },
+                "id": {
+                    "value": ""
+                }
+            }
+        },
+        "merchant_passcode": {
+            "_v": false,
+            "_l": false,
+            "value": false
+        },
+        "clerk_id": {
+            "_v": false,
+            "_l": false,
+            "value": false
+        }
+    },
+    "security": {
+        "_v": true,
+        "_l": false,
+        "manager_password": {
+            "value": ""
+        },
+        "merchant_passcode": {
+            "value": ""
+        }
+    },
+    "printer": {
+        "_v": false,
+        "_l": false,
+        "pre_print": {
+            "value": false
+        },
+        "auto_print": {
+            "value": "true",
+            "fee": "09:45:00"
+        },
+        "report_type": {
+            "value": true,
+            "fee": "summary"
+        },
+        "receive_type": {
+            "value": true,
+            "fee": "print"
+        },
+        "auto_print_all": {
+            "value": false
+        },
+        "is_printed_by_me": {
+            "value": false
+        },
+        "both_receipt": {
+            "value": true
+        },
+        "receipt_footer_lines": {
+            "line_1": {
+                "en": "",
+                "fr": ""
+            },
+            "line_2": {
+                "en": "THANK YOU FOR YOUR BUSINESS !",
+                "fr": ""
+            },
+            "line_3": {
+                "en": "PSP Services, Inc.",
+                "fr": ""
+            },
+            "line_4": {
+                "en": "",
+                "fr": ""
+            },
+            "line_5": {
+                "en": "",
+                "fr": ""
+            },
+            "line_6": {
+                "en": "",
+                "fr": ""
+            },
+            "value": true
+        },
+        "receipt_header_lines": {
+            "line_1": "https://receipt-dev-tms.s3.ap-south-1.amazonaws.com/psplogo.png",
+            "line_2": "",
+            "line_3": "",
+            "line_4": "",
+            "line_5": {
+                "en": "",
+                "fr": ""
+            },
+            "line_6": {
+                "en": "",
+                "fr": ""
+            }
+        }
+    },
+    "transaction_settings": {
+        "_v": false,
+        "tip_configuration": {
+            "_v": false,
+            "_l": false,
+            "tip_screen": {
+                "value": true
+            },
+            "percentage_tip_amount": {
+                "value": true,
+                "amount_1": {
+                    "value": "15"
+                },
+                "amount_2": {
+                    "value": "18"
+                },
+                "amount_3": {
+                    "value": "20"
+                }
+            },
+            "dollar_tip_amount": {
+                "value": true,
+                "amount_1": {
+                    "value": "5"
+                },
+                "amount_2": {
+                    "value": "10"
+                },
+                "amount_3": {
+                    "value": "15"
+                }
+            }
+        },
+        "surcharge": {
+            "_v": false,
+            "_l": false,
+            "debit_surcharge": {
+                "fee": "0.50",
+                "value": false,
+                "limit": "100"
+            },
+            "credit_surcharge": {
+                "fee": "2.40",
+                "value": false
+            }
+        },
+        "invoice_number": {
+            "_v": false,
+            "_l": false,
+            "auto_increment": {
+                "value": true
+            },
+            "manual_entry": {
+                "value": false
+            }
+        },
+        "tap_limit": {
+            "_v": true,
+            "_l": false,
+            "fee": "200"
+        },
+        "tap_count": {
+            "_v": true,
+            "_l": false,
+            "fee": "3"
+        }
+    },
+    "screen_times": {
+        "credit_debit_sale": {
+            "pin_screen_time": "50",
+            "pin_screen_counter": "3",
+            "tap_screen_time": "50",
+            "tap_screen_counter": "3",
+            "other_screen_time": "60",
+            "other_screen_counter": "3"
+        },
+        "refund": {
+            "_v": true,
+            "_l": true,
+            "pin_screen_time": "50",
+            "pin_screen_counter": "3",
+            "tap_screen_time": "50",
+            "tap_screen_counter": "3",
+            "other_screen_time": "60",
+            "other_screen_counter": "3"
+        }
+    }
+}

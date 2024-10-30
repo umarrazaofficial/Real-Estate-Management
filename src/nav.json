@@ -1,0 +1,16 @@
+[
+  {
+    "name": "Dashboard",
+    "file": "dashboard",
+    "navigations": true,
+    "live": true,
+    "icon": "dashboard"
+  },
+  {
+    "name": "Business",
+    "file": "business",
+    "navigations": true,
+    "live": true,
+    "icon": "business"
+  }
+]
