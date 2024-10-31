@@ -1,12 +1,10 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { VectorMap } from '@react-jvectormap/core';
 import { MapMainWrapper, MapSkeletons, StyledMAp } from './MAp.styles';
 import worldMill from '@react-jvectormap/world/dist/worldMill.json';
 import marker from '../../../../src/assets/marker.svg';
 import StoreSlider from '../StoreSlider';
 import businessService from '../../../services/businessService';
-import storeService from '../../../services/storeService';
-
 export const markerPositions = [
   {
     id: 1,
@@ -14,7 +12,7 @@ export const markerPositions = [
     lng: 73.183812,
     name: 'Pizza Hut Lahore',
     business: 'Business 1',
-    stores: 10,
+    stores: 1000,
   },
   {
     id: 2,
@@ -22,7 +20,7 @@ export const markerPositions = [
     lng: -74.005974,
     name: 'KFC New York',
     business: 'Business 2',
-    stores: 13,
+    stores: 1000,
   },
   {
     id: 3,
@@ -30,7 +28,7 @@ export const markerPositions = [
     lng: -0.127758,
     name: 'Burger King London',
     business: 'Business 3',
-    stores: 12,
+    stores: 1000,
   },
   {
     id: 4,
@@ -38,7 +36,7 @@ export const markerPositions = [
     lng: 139.691711,
     name: "Domino's Tokyo",
     business: 'Business 4',
-    stores: 5,
+    stores: 1000,
   },
   {
     id: 5,
@@ -46,7 +44,7 @@ export const markerPositions = [
     lng: 151.20929,
     name: 'Subway Sydney',
     business: 'Business 5',
-    stores: 7,
+    stores: 1000,
   },
   {
     id: 6,
@@ -54,7 +52,7 @@ export const markerPositions = [
     lng: 2.352222,
     name: 'Starbucks Paris',
     business: 'Business 6',
-    stores: 9,
+    stores: 1000,
   },
   {
     id: 7,
@@ -62,7 +60,7 @@ export const markerPositions = [
     lng: 37.617298,
     name: 'Taco Bell Moscow',
     business: 'Business 7',
-    stores: 2,
+    stores: 1000,
   },
   {
     id: 8,
@@ -70,7 +68,7 @@ export const markerPositions = [
     lng: -46.633308,
     name: "Wendy's São Paulo",
     business: 'Business 8',
-    stores: 5,
+    stores: 500,
   },
   {
     id: 9,
@@ -78,7 +76,7 @@ export const markerPositions = [
     lng: -99.133209,
     name: "Dunkin' Donuts Mexico City",
     business: 'Business 9',
-    stores: 3,
+    stores: 300,
   },
   {
     id: 10,
@@ -86,7 +84,7 @@ export const markerPositions = [
     lng: 116.407394,
     name: 'Popeyes Beijing',
     business: 'Business 10',
-    stores: 7,
+    stores: 700,
   },
 ];
 
@@ -95,12 +93,12 @@ export default function Map() {
     page: 1,
     pageSize: 10,
     searchText: '',
-    filterText: 'ACTIVE',
+    filterStatus: 'Active',
   });
   const [selectedStore, setSelectedStore] = useState();
   const sliderRef = useRef(null);
-  const { businesses_data } = businessService.GetBusinesses(searchQuery);
-  // const business_data = data?.businesses_data?.businesses;
+  const data = businessService.GetBusinesses(searchQuery);
+  const business_data = data?.businesses_data?.properties;
   const handleButtonClick = index => {
     if (sliderRef.current) {
       sliderRef.current.slickGoTo(index);
@@ -114,8 +112,7 @@ export default function Map() {
 
   return (
     <MapMainWrapper>
-      <h1 className="heading">Active businesses</h1>
-      {!markerPositions ? (
+      {data?.businesses_loading ? (
         <MapSkeletons />
       ) : (
         <StyledMAp>
@@ -142,21 +139,16 @@ export default function Map() {
             }}
             containerClassName="map"
             // onRegionTipShow={function noRefCheck() {}}
-
-            markers={markerPositions?.map(elem => ({
-              latLng: [elem?.lat, elem?.lng],
-              name: elem.name,
-            }))}
             regionStyle={{
               initial: {
-                fill: 'var(--primary-50)',
+                fill: '#D1D5DB',
                 'fill-opacity': 1,
                 stroke: '#265cff',
                 'stroke-width': 0,
                 'stroke-opacity': 0,
               },
               hover: {
-                fill: 'var(--primary)',
+                fill: 'var(--primary-50)',
                 stroke: 'var(--primary-50)',
               },
               selected: {
@@ -171,7 +163,7 @@ export default function Map() {
           />
         </StyledMAp>
       )}
-      <StoreSlider data={businesses_data} selected={+selectedStore} refrence={sliderRef} />
+      <StoreSlider data={business_data} selected={+selectedStore} refrence={sliderRef} />
     </MapMainWrapper>
   );
 }

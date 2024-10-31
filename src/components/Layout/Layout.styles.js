@@ -1,4 +1,4 @@
-import styled, {css} from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const StyledLayout = styled.div`
   ${({ $showlayout }) =>
@@ -28,7 +28,7 @@ export const StyledLayout = styled.div`
             }
           `
         : css`
-            background: var(--white);
+            background: transparent;
           `}
   }
 `;

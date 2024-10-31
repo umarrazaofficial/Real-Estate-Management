@@ -5,6 +5,7 @@ import Login from './components/atoms/Login';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from './Context/authContext';
 import Dashboard from './Pages/dashboard';
+import Expenses from './Pages/expenses';
 
 const Router = () => {
   function PublicRoute({ children, redirectTo, isLoggedIn }) {
@@ -26,7 +27,7 @@ const Router = () => {
       <Route
         path="/dashboard"
         element={
-          <PrivateRoute redirectTo="/" isLoggedIn={true}>
+          <PrivateRoute redirectTo="/" isLoggedIn={isLoggedIn}>
             <Layout showTemplate={true}>
               <Dashboard />
             </Layout>
@@ -34,11 +35,21 @@ const Router = () => {
         }
       />
       <Route
-        path="/business"
+        path="/property"
         element={
-          <PrivateRoute redirectTo="/" isLoggedIn={true}>
+          <PrivateRoute redirectTo="/" isLoggedIn={isLoggedIn}>
             <Layout showTemplate={true}>
               <Business />
+            </Layout>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/property/expenses/:_id"
+        element={
+          <PrivateRoute redirectTo="/" isLoggedIn={isLoggedIn}>
+            <Layout showTemplate={true}>
+              <Expenses />
             </Layout>
           </PrivateRoute>
         }
@@ -47,7 +58,7 @@ const Router = () => {
       <Route
         path="/sign-up"
         element={
-          <PublicRoute isLoggedIn={false} redirectTo={redirectTo}>
+          <PublicRoute isLoggedIn={isLoggedIn} redirectTo={'/dashboard'}>
             <Login />
           </PublicRoute>
         }
@@ -55,7 +66,7 @@ const Router = () => {
       <Route
         path="*"
         element={
-          <PublicRoute isLoggedIn={false} redirectTo={redirectTo}>
+          <PublicRoute isLoggedIn={isLoggedIn} redirectTo={'/dashboard'}>
             <Login />
           </PublicRoute>
         }

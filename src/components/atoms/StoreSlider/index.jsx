@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { StoreSliderWrapper } from './StoreSlider.style';
 import StoreImg from '../../../assets/StoreImg.svg';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import storeService from '../../../services/storeService';
 import { useNavigate } from 'react-router-dom';
 export const Stores = [
   {
@@ -39,21 +38,19 @@ const StoreSlider = ({ data, selected, refrence }) => {
   return (
     <StoreSliderWrapper>
       <Slider {...settings} ref={refrence}>
-        {data?.businesses?.map((elem, index) => (
+        {data?.map((elem, index) => (
           <div
             className={`card-wrapper ${index === selected && 'active'}`}
             key={index}
-            onClick={() => navigate(`/business/business-store/${elem?.id}`)}>
+            onClick={() => navigate(`/property/expenses/${elem?._id}`)}>
             <div className="img-container">
               <img src={StoreImg} alt="store-img" />
             </div>
             <div className="desc">
               <h2 className="title">{elem?.name}</h2>
-              <span className="store-count">
-                {elem?.salesChannels?.length} {elem?.salesChannels?.length > 1 ? 'Channels' : 'Channel'}
-              </span>
+              <span className="store-count">{elem?.area}</span>
             </div>
-            <div className="business">Business {index + 1}</div>
+            <div className="business">Property {index + 1}</div>
           </div>
         ))}
       </Slider>

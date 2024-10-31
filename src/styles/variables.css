@@ -13,8 +13,8 @@
   --text-color: #313131;
   --black: #000;
   --dark: #505050;
-  --primary: #465045;
-  --primary-50: #D5CBBF;
+  --primary: #355B85;
+  --primary-50: #6D91B9;
   --secondary: #222e44;
   --light: #f5faf9;
    --success: #419400;
@@ -27,10 +27,10 @@
   --toastify-icon-color-success: #408f8c;
   --toastify-color-error: rgba(215, 65, 32, 1);
   --toastify-icon-color-error: rgba(215, 65, 32, 1);
-   --toastify-font-family: "Lato", sans-serif;
+  --toastify-font-family: "Lexend", sans-serif;
 
-  --base-font-sans-serif: "Lato", sans-serif;
-  --base-font-serif: "Lato", sans-serif,
+  --base-font-sans-serif: "Lexend", sans-serif;
+  --base-font-serif: "Lexend", sans-serif,
 
   /* Body */
   --base-text-color: #313131;

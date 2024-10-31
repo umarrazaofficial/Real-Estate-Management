@@ -12,7 +12,7 @@ const Business = () => {
 
   return (
     <>
-      <BusinessHeader setSearchQuery={setSearchQuery} heading="Approved businesses (live)" />
+      <BusinessHeader setSearchQuery={setSearchQuery} heading="Properties" />
       <AllBusinessSection
         searchQuery={searchQuery}
         currentPage={searchQuery.page}

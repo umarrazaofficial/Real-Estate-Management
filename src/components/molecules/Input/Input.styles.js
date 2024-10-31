@@ -99,7 +99,7 @@ export const styles = css`
     `}
 
   &:focus {
-    border-color: var(--success);
+    border-color: var(--primary);
   }
 
   ::-webkit-input-placeholder {

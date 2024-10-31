@@ -1,22 +1,16 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { BusinessHeaderWrapper } from './BusinessHeader.style';
 import Button from '../../molecules/Button';
 import Field from '../Field';
-// import Select from '../../molecules/Select';
 import AddBusinessModal from '../AddBusinessModal';
 import CenterModal from '../../molecules/Modal/CenterModal';
 import SuccessModal from '../SuccessModal';
 import { debounce } from '../../../helpers/common';
 import SearchIcon from '../../../assets/searchIcon.svg';
-import { useNavigate } from 'react-router-dom';
-// import { useContextHook } from 'use-context-hook';
-// import { AuthContext } from '../../../Context/authContext';
 
-const BusinessHeader = ({ setSearchQuery, heading, placeholder = 'Search business' }) => {
-  // const { hasPermission } = useContextHook(AuthContext, ['hasPermission']);
+const BusinessHeader = ({ setSearchQuery, heading, placeholder = 'Search property' }) => {
   const [modal, setModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
-  const navigate = useNavigate();
   const handleBusinessSubmit = e => {
     setSuccessModal(true);
     setModal(false);
@@ -31,14 +25,14 @@ const BusinessHeader = ({ setSearchQuery, heading, placeholder = 'Search busines
     <>
       {/* ------------------- Modal Start ------------------- */}
 
-      <CenterModal width="666" title="Add New Business" open={modal} setOpen={setModal}>
+      <CenterModal width="666" title="Add New Property" open={modal} setOpen={setModal}>
         <AddBusinessModal handleSubmit={handleBusinessSubmit} />
       </CenterModal>
 
       <CenterModal width="580" open={successModal} setOpen={setSuccessModal}>
         <SuccessModal
-          heading="Business Created Successfully"
-          para="your business creation is successfully completed, now you can create multiple stores in it."
+          heading="Property Created Successfully!"
+          para="Your property creation is successfully completed, now you can add expenses in it."
           btnText="Go Back!"
           btnClick={() => setSuccessModal(false)}
         />
@@ -48,7 +42,7 @@ const BusinessHeader = ({ setSearchQuery, heading, placeholder = 'Search busines
 
       <BusinessHeaderWrapper>
         <div className="heading-wrap">
-          <h2 className="heading">{heading ? heading : 'My business'}</h2>
+          <h2 className="heading">{heading}</h2>
         </div>
         <div className="filters">
           <div className="Search">
@@ -58,19 +52,15 @@ const BusinessHeader = ({ setSearchQuery, heading, placeholder = 'Search busines
               lg
               name="search"
               placeholder={placeholder}
-              prefix={<img src={SearchIcon} alt="SearchIcon" />}
+              prefix={<img src={SearchIcon} className="icon" alt="searchIcon" />}
               onChange={({ target: { value } }) => {
                 debouncedSetSearchQuery(value);
               }}
             />
           </div>
-          {/* {hasPermission('business.create-business') && ( */}
-          {/* {admin && ( */}
-          <Button width="180px" onClick={() => navigate('/business/business-requests')}>
-            Businesses requests
+          <Button variant="primary" width="145px" onClick={() => setModal(true)}>
+            + Add Property
           </Button>
-          {/* )} */}
-          {/* )} */}
         </div>
       </BusinessHeaderWrapper>
     </>

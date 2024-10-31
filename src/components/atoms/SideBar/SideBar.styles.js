@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledSideBar = styled.div`
-  background: #465045;
-  /* background: linear-gradient(180deg, #465045 0%, #6e786d 100%); */
+  background: linear-gradient(116.03deg, #355b85 5.04%, #1b2e44 86.56%);
   border-radius: 12px;
   /* padding: 20px 16px; */
   padding: 20px 0;
@@ -40,7 +39,7 @@ export const StyledSideBar = styled.div`
     overflow-y: auto;
     width: 100%;
     .logoWrapper {
-      max-width: 47px;
+      max-width: 40px;
       img {
         display: block;
         width: 100%;
@@ -69,7 +68,7 @@ export const StyledSideBar = styled.div`
           bottom: -7px;
           left: -1px;
           width: 4px;
-          background: var(--primary-50);
+          background: rgba(254, 184, 99, 1);
           border-radius: 0px 60px 60px 0px;
         }
       }

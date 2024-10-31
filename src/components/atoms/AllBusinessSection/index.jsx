@@ -20,7 +20,6 @@ import Loaders from '../Loaders';
 import MenuButton, { MenuItem } from '../Menu';
 import ModalContainer from '../../molecules/ModalContainer';
 import BussniessDetails from '../BussniessDetails';
-import Captcha from '../CaptchaComponent';
 import DeleteModal from '../DeleteModal';
 
 export const StoresList = [
@@ -50,9 +49,6 @@ const AllBusinessSection = ({ searchQuery, currentPage = 1, pageSize = 10, total
   const [editModal, setEditModal] = useState(false);
   const [deleteSuccessModal, setDeleteSuccessModal] = useState(false);
   const [businessData, setBusinessData] = useState(null);
-  // const [filterState, setFilterState] = useState('');
-
-  // const { hasPermission } = useContextHook(AuthContext, ['hasPermission']);
 
   const { fetch, refetch } = useContextHook(AuthContext, v => ({
     fetch: v.fetch,
@@ -78,7 +74,6 @@ const AllBusinessSection = ({ searchQuery, currentPage = 1, pageSize = 10, total
       });
     }
   };
-  // console.log(hasPermission('business.edit-business'));
   return (
     <>
       {/* ------------------- Modal Start ------------------- */}
@@ -108,8 +103,8 @@ const AllBusinessSection = ({ searchQuery, currentPage = 1, pageSize = 10, total
         <Loaders viewLoader />
       ) : (
         <AllBusinessSectionWrapper>
-          {businesses_data?.totalItems > 0 ? (
-            businesses_data?.businesses?.map((data, index) => (
+          {businesses_data?.properties?.length > 0 ? (
+            businesses_data?.properties?.map((data, index) => (
               <div key={index} className="content-wrap">
                 <BusinessWrap>
                   <div className="icon">
@@ -117,7 +112,7 @@ const AllBusinessSection = ({ searchQuery, currentPage = 1, pageSize = 10, total
                   </div>
                   <div>
                     <h2 className="title">{data?.name}</h2>
-                    <span className="desc">{data?.salesChannels?.length || 0} channels</span>
+                    <span className="desc">{data?.area}</span>
                   </div>
                 </BusinessWrap>
                 <div className="btns-wrap">
@@ -127,62 +122,52 @@ const AllBusinessSection = ({ searchQuery, currentPage = 1, pageSize = 10, total
                     variant={data?.status === 'Deactivated' ? 'white' : 'light-primary'}
                     disabled={data?.status === 'Deactivated' && true}
                     onClick={() => {
-                      navigate(`/business/business-store/${data?.id}`);
+                      navigate(`/property/expenses/${data?._id}`);
                     }}>
-                    See channels
+                    View Details
                   </Button>
                 </div>
                 <div className="dots">
                   <div className="action-btn">
                     <MenuButton transition icon={<BsThreeDotsVertical size={20} color="#9D9D9D" />}>
-                      {/* {data?.status === 'Active' && (
-                        <> */}
-                      {/* {hasPermission('business.edit-business') && ( */}
                       <ModalContainer
                         width="777"
-                        title={'Edit Business'}
+                        title="Edit Property"
                         btnComponent={({ onClick }) => (
                           <MenuItem onClick={onClick}>
-                            <img src={EditIcon} alt="EditIcon" /> Edit Business
+                            <img src={EditIcon} alt="EditIcon" /> Edit Property
                           </MenuItem>
                         )}
                         content={({ onClose }) => <AddBusinessModal businessData={data} handleSubmit={onClose} />}
                       />
-                      {/* )} */}
-                      {/* {hasPermission('business.delete-business') && ( */}
                       <ModalContainer
                         width="580"
                         btnComponent={({ onClick }) => (
                           <MenuItem onClick={onClick}>
-                            <img src={DeleteIcon} alt="DeleteIcon" /> Deactivate Business
+                            <img src={DeleteIcon} alt="DeleteIcon" /> Delete Property
                           </MenuItem>
                         )}
                         content={({ onClose }) => (
                           <DeleteModal
-                            heading={'Deactivate Business'}
-                            para="Are you sure you want to deactivate this business?"
-                            btnText="Yes, Deactivate"
+                            heading="Delete Property"
+                            para="Are you sure you want to delete this property?"
+                            btnText="Yes, Delete"
                             btnClick={() => {
-                              handelDeactivateBusiness(data?.id, onClose);
+                              handelDeactivateBusiness(data?._id, onClose);
                             }}
                           />
                         )}
                       />
-                      {/* )} */}
-                      {/* </>
-                      )} */}
-                      {/* {hasPermission('business.get-business-details') && ( */}
                       <ModalContainer
                         width="777"
-                        title="Business Details"
+                        title="Property Details"
                         btnComponent={({ onClick }) => (
                           <MenuItem onClick={onClick}>
-                            <img src={DetailIcon} alt="DetailIcon" /> Business Details
+                            <img src={DetailIcon} alt="DetailIcon" /> Property Details
                           </MenuItem>
                         )}
-                        content={({ onClose }) => <BussniessDetails bussinessId={data?.id} />}
+                        content={({ onClose }) => <BussniessDetails businessData={data} />}
                       />
-                      {/* )} */}
                     </MenuButton>
                   </div>
                 </div>
@@ -191,18 +176,6 @@ const AllBusinessSection = ({ searchQuery, currentPage = 1, pageSize = 10, total
           ) : (
             <NoRecordFound>No Record Found</NoRecordFound>
           )}
-          {/* <div className="pagination">
-            {businesses_data?.totalItems > 1 ? (
-              <Pagination
-                currentPage={currentPage}
-                totalCount={businesses_data?.totalItems}
-                pageSize={pageSize}
-                onPageChange={_ => onChangeFilters({ filter: filterState.filter, page: _ })}
-              />
-            ) : (
-              ''
-            )}
-          </div> */}
         </AllBusinessSectionWrapper>
       )}
     </>

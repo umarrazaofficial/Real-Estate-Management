@@ -1,9 +1,36 @@
-import styled from "styled-components";
-import bg from '../../../assets/mainBg.png';
+import styled from 'styled-components';
+
 export const FormContent = styled.div`
   position: relative;
   max-width: 500px;
   width: 100%;
+  .heading-text {
+    width: 100%;
+    color: var(--white);
+    margin: 0 0 30px;
+    text-align: center;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 300;
+    @media (min-width: 768px) {
+      font-size: 20px;
+      line-height: 24px;
+    }
+  }
+  .head {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 85px;
+    .back-arrow {
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+  }
+
+  h1 {
+    color: var(--white);
+  }
 
   form {
     max-width: 480px;
@@ -16,6 +43,16 @@ export const FormContent = styled.div`
       gap: 15px;
       width: 100%;
     }
+
+    label {
+      display: block;
+      width: 100%;
+      font-size: 18px;
+      line-height: 24px;
+      font-weight: 400;
+      margin: 0 0 16px;
+      color: var(--white);
+    }
   }
 
   .btn-holder {
@@ -25,35 +62,19 @@ export const FormContent = styled.div`
     gap: 10px;
     padding: 20px 0 16px;
   }
-`;
 
-export const MainWrapperForm = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  min-height: calc(100vh - 40px);
-  border-radius: 20px;
-  background: url(${bg});
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  .logo-wrapper {
-    max-width: 237px;
-    margin-bottom: 40px;
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-  }
-  .text-wrapper {
-    max-width: 332px;
+  .sign-in {
     width: 100%;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 22px;
-    text-align: center;
-    margin-bottom: 36px;
+    color: var(--white);
+    text-align: right;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+    padding: 10px;
+    cursor: pointer;
+    @media (min-width: 768px) {
+      font-size: 16px;
+      line-height: 20px;
+    }
   }
 `;

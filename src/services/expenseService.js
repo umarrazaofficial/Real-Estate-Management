@@ -8,44 +8,61 @@ const STATUS = {
   ERROR: 'error',
 };
 
-const businessService = {
+const expenseService = {
   _url: 'https://us-store-backend.vercel.app/api',
 
-  GetBusinesses(searchQuery, refetch) {
-    const [businesses, setBusinesses] = useState([]);
+  GetExpenses(searchQuery, refetch) {
+    const [expenses, setExpenses] = useState([]);
     const { cancellablePromise } = useCancellablePromise();
     const [status, setStatus] = useState(STATUS.LOADING);
     useEffect(() => {
       setStatus(STATUS.LOADING);
-      cancellablePromise(this.getBusinesses(searchQuery))
+      cancellablePromise(this.getExpenses(searchQuery))
         .then(res => {
-          setBusinesses(() => res);
+          setExpenses(() => res);
           setStatus(STATUS.SUCCESS);
         })
         .catch(() => setStatus(STATUS.ERROR));
-    }, [searchQuery?.page, searchQuery?.pageSize, searchQuery?.searchText, searchQuery?.filterText, refetch]);
+    }, [
+      searchQuery?.page,
+      searchQuery?.pageSize,
+      searchQuery?.searchText,
+      searchQuery?.propertyId,
+      searchQuery?.filterText,
+      refetch,
+    ]);
     return {
-      businesses_loading: status === STATUS.LOADING,
-      businesses_error: status === STATUS.ERROR ? status : '',
-      businesses_data: businesses,
+      expenses_loading: status === STATUS.LOADING,
+      expenses_error: status === STATUS.ERROR ? status : '',
+      expenses_data: expenses,
     };
   },
 
-  async getBusinesses({ searchText = '' }) {
-    let res = await Fetch.get(`${this._url}/getAllProperty?name=${searchText}`);
+  async getExpenses({ propertyId = '', searchText = '' }) {
+    let res = await Fetch.get(`${this._url}/getAllExpenses?title=${searchText}&propertyId=${propertyId}`);
     if (res.status >= 200 && res.status < 300) {
       res = await res.json();
-
       return {
-        properties: res,
+        ...res,
       };
     }
     const { message } = await res.json();
     throw new Error(message ?? 'Something went wrong');
   },
 
-  async createBusiness(payload) {
-    let res = await Fetch.post(`${this._url}/addProperty`, payload);
+  async addExpense(payload) {
+    let res = await Fetch.post(`${this._url}/addExpense`, payload);
+
+    if (res.status >= 200 && res.status < 300) {
+      res = await res.json();
+      return res;
+    }
+    const { message } = await res.json();
+    throw new Error(message ?? 'Something went wrong');
+  },
+
+  async deleteExpense(id) {
+    let res = await Fetch.delete(`${this._url}/deleteExpense/${id}`);
 
     if (res.status >= 200 && res.status < 300) {
       res = await res.json();
@@ -56,20 +73,8 @@ const businessService = {
     throw new Error(message ?? 'Something went wrong');
   },
 
-  async deleteBusiness(id) {
-    let res = await Fetch.delete(`${this._url}/deleteProperty/${id}`);
-
-    if (res.status >= 200 && res.status < 300) {
-      res = await res.json();
-
-      return res;
-    }
-    const { message } = await res.json();
-    throw new Error(message ?? 'Something went wrong');
-  },
-
-  async editBusiness(id, payload) {
-    let res = await Fetch.put(`${this._url}/updateProperty/${id}`, payload);
+  async editExpense(id, payload) {
+    let res = await Fetch.put(`${this._url}/updateExpense/${id}`, payload);
 
     if (res.status >= 200 && res.status < 300) {
       res = await res.json();
@@ -81,4 +86,4 @@ const businessService = {
   },
 };
 
-export default businessService;
+export default expenseService;

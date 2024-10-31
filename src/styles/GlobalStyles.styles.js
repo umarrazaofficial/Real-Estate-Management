@@ -25,7 +25,7 @@ export const Styling = css`
     font: var(--font-size-base) / var(--line-height-base) var(--base-font-sans-serif);
     color: var(--base-text-color);
     font-weight: 400;
-    /* background: var(--primary-50); */
+    background: var(--primary-50);
     min-width: var(--base-min-width);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -66,6 +66,21 @@ export const Styling = css`
   }
   .secondary-bg-50 {
     background: rgba(157, 157, 157, 0.1);
+  }
+  .total-amount {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    @media (max-width: 500px) {
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    span {
+      font-size: 20px;
+      line-height: 24px;
+      font-weight: 400;
+    }
   }
 
   /*  ---------------- Helpers ---------------- */

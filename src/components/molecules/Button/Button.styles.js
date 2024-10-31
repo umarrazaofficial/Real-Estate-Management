@@ -1,194 +1,93 @@
 import styled, { css } from 'styled-components';
 
 export const StyledButton = styled.button`
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  position: relative;
+  gap: ${({ $gap }) => ($gap ? $gap : '5px')};
+  padding: 13px 15px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
   width: 100%;
-  max-width: ${({ $width }) => ($width ? $width : '100%')};
-  font-size: 13px;
-  line-height: 17px;
-  font-weight: 500;
-  padding: 10px;
-  border-radius: 8px;
-  color: var(--primary);
+  max-width: ${({ $width }) => $width && $width};
+  background: var(--primary);
+  color: var(--white);
+  transition: 0.5s all ease-in-out;
   overflow: hidden;
-  background: var(--brown);
-  transition: 0.3s all ease-in-out;
-
-  @media (min-width: 576px) {
-    padding: 16px 20px;
-  }
-  @media (min-width: 1200px) {
-    font-size: 20px;
-    line-height: 23px;
-  }
-
-  ${({ $animation }) =>
-    $animation &&
-    css`
-      &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%) skew(70deg);
-        visibility: hidden;
-        opacity: 0;
-        width: 0;
-        border-radius: 8px;
-        background: var(--dark-green);
-        transition: 0.3s all ease-in-out;
-        z-index: -1;
-      }
-    `}
-  /* &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%) skew(70deg);
-    visibility: hidden;
-    opacity: 0;
-    width: 0;
-    border-radius: 8px;
-    background: var(--dark-green);
-    transition: 0.3s all ease-in-out;
-    z-index: -1;
-  } */
-
-  ${({ $sm }) =>
-    $sm &&
-    css`
-      font-weight: 500;
-
-      @media (min-width: 576px) {
-        padding: 12px 20px;
-      }
-      @media (min-width: 1200px) {
-        font-size: 14px;
-        line-height: 18px;
-      }
-    `}
-
-  ${({ $xs }) =>
-    $xs &&
-    css`
-      font-size: 13px;
-      line-height: 16px;
-      font-weight: 500;
-
-      @media (min-width: 576px) {
-        padding: 8px 10px;
-      }
-      @media (min-width: 1200px) {
-        font-size: 13px;
-        line-height: 16px;
-      }
-
-      &::before {
-        content: '';
-        transform: translateX(-50%) skew(50deg);
-      }
-    `}
-
-  ${({ $md }) =>
-    $md &&
-    css`
-      font-size: 16px;
-      line-height: 20px;
-      font-weight: 600;
-
-      @media (min-width: 576px) {
-        padding: 10px 20px;
-      }
-      @media (min-width: 1200px) {
-        font-size: 16px;
-        line-height: 20px;
-      }
-    `}
 
   ${({ $loader, disabled }) =>
     $loader ||
     (disabled &&
       css`
         cursor: not-allowed;
+        /* background-color: transparent ;
+        border: 1px solid #CDCDCD;
+        color: #CDCDCD; */
       `)}
 
-      ${({ $animation }) =>
-    $animation &&
+  ${({ $lg }) =>
+    $lg &&
     css`
-      &:hover {
-        opacity: 0.99;
-        color: var(--white);
-
-        &::before {
-          width: 100%;
-          visibility: visible;
-          opacity: 1;
-        }
-      }
-    `}
-  
-
-  ${({ $variant }) =>
-    $variant === 'secondary' &&
-    css`
-      color: var(--white);
-      background: var(--primary);
+      padding: 16px 20px;
+      font-size: 22px;
+      line-height: 26px;
+      font-weight: 700;
+      width: ${({ $width }) => ($width ? $width : '283px')};
     `}
 
+  /* @media screen and (max-width:786px) {
+    padding: 8px 15px;
+  } */
+  /***** Background-Variants-Start *****/
   ${({ $variant }) =>
-    $variant === 'primary' &&
+    $variant === 'white' &&
     css`
+      background: var(--white);
       color: var(--primary);
-      background: rgba(213, 203, 191, 1);
+      box-shadow: 0px 3px 10px 0px #0000001a;
+      padding: 14px 27px;
+      .loader {
+        border-top: 3px solid var(--link-color) !important;
+      }
     `}
   ${({ $variant }) =>
     $variant === 'light-primary' &&
     css`
+      background: rgba(53, 91, 133, 0.1);
       color: var(--primary);
-      background: rgba(70, 80, 69, 0.1);
+      padding: 14px 27px;
     `}
-  ${({ $variant }) =>
+    ${({ $variant }) =>
     $variant === 'light' &&
     css`
-      color: var(--secondary);
-      background: var(--white);
+      background: rgba(53, 91, 133, 0.05);
+      color: var(--text-color);
+      padding: 14px 27px;
     `}
-
-  ${({ $variant }) =>
-    $variant === 'outline' &&
-    css`
-      border: 1px solid rgba(70, 80, 69, 0.1);
-      color: var(--light-gray);
-      background: var(--gray-100);
-
-      &::before {
-        background: var(--primary);
-      }
-
-      &:hover {
-        color: var(--white);
-      }
-    `}
-
   ${({ $variant }) =>
     $variant === 'danger' &&
     css`
-      color: var(--white);
       background: var(--danger);
-
-      &::before {
-        background: #e06348;
-      }
+      color: var(--white);
     `}
+  /*****************Background Variants End*********************/
 
-  .loader {
+
+  /*****************Border Variants Start*********************/
+
+  ${({ $outline }) =>
+    $outline &&
+    css`
+      border: 1px solid #0000001a;
+      background: transparent;
+      color: var(--text-color);
+    `}
+  /*****************Border Variants End*********************/
+
+    .loader {
     width: 17px;
     height: 17px;
     border-radius: 50%;
@@ -197,6 +96,12 @@ export const StyledButton = styled.button`
     border-right: 3px solid transparent;
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
+    ${({ $lg }) =>
+      $lg &&
+      css`
+        width: 27px;
+        height: 27px;
+      `}
   }
 
   @keyframes rotation {
@@ -205,6 +110,28 @@ export const StyledButton = styled.button`
     }
     100% {
       transform: rotate(360deg);
+    }
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    width: 70px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.7);
+    transform: rotate(-35deg);
+    top: -100px;
+    left: -100%;
+    transition: all 1500ms cubic-bezier(0.19, 1, 0.22, 1);
+    opacity: 0;
+  }
+  &:hover {
+    box-shadow: 0px 4px 3px 0px #ffffff45 inset, 0px -3px 5px 0px #ffffff40 inset;
+
+    box-shadow: 0px 1px 14px 0px #1fabd300;
+    &:before {
+      left: 150%;
+      opacity: 0.4;
     }
   }
 `;

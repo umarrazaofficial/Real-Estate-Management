@@ -26,6 +26,10 @@ export const StoreSliderWrapper = styled.div`
       .store-count {
         color: var(--white);
       }
+      .business {
+        background: var(--white);
+        color: var(--primary);
+      }
       .img-container {
         background: var(--white);
         img {
@@ -75,7 +79,7 @@ export const StoreSliderWrapper = styled.div`
       position: absolute;
       right: 16px;
       top: 20px;
-      background: rgba(213, 203, 191, 1);
+      background: rgba(53, 91, 133, 0.1);
       padding: 6px 10px;
       border-radius: 5px;
       font-size: 12px;

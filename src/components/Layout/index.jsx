@@ -5,14 +5,6 @@ import Header from '../atoms/Header';
 import Loaders from '../atoms/Loaders';
 
 const Layout = ({ children, showTemplate }) => {
-  useEffect(() => {
-    if (showTemplate) {
-      document.body.style.background = 'var(--primary-50)';
-    } else {
-      document.body.style.background = 'var(--white)';
-    }
-  }, [showTemplate]);
-
   return (
     <StyledLayout $showlayout={showTemplate}>
       {showTemplate ? (

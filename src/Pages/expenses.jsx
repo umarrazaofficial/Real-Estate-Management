@@ -1,83 +1,31 @@
 import React, { useMemo, useState } from 'react';
-import TableLayout from '../../molecules/TableLayout';
-import Button from '../../molecules/Button';
-import Table from '../../molecules/Table';
-import Select from '../../molecules/Select';
 import { BsThreeDotsVertical } from 'react-icons/bs';
-import { AdminTableWrapper, MenuItems, MenuMain } from './AdminTable.style';
 import { ImSwitch } from 'react-icons/im';
 import { MdOutlinePassword } from 'react-icons/md';
 import { MenuButton } from '@szhsin/react-menu';
-import CenterModal from '../../molecules/Modal/CenterModal';
-import DeleteModal from '../DeleteModal';
-import SuccessModal from '../SuccessModal';
-import AddAdminModal from '../AddAdminModal';
-import adminService from '../../../services/adminService';
-import EditIcon from '../../../assets/editIcon.svg';
-import DeleteIcon from '../../../assets/deleteIcon.svg';
 import { useContextHook } from 'use-context-hook';
-import { AuthContext } from '../../../Context/authContext';
 import { format } from 'date-fns';
-import { getDateObject } from '../../../helpers/common';
-import Toast from '../../molecules/Toast';
+import TableLayout from '../components/molecules/TableLayout';
+// import Select from '../components/molecules/Select';
+import Button from '../components/molecules/Button';
+import Table from '../components/molecules/Table';
+import { AdminTableWrapper, MenuItems, MenuMain } from '../components/atoms/AdminTable/AdminTable.style';
+import CenterModal from '../components/molecules/Modal/CenterModal';
+import DeleteModal from '../components/atoms/DeleteModal';
+import SuccessModal from '../components/atoms/SuccessModal';
+import adminService from '../services/adminService';
+// import { AuthContext } from '../Context/authContext';
+import Toast from '../components/molecules/Toast';
+// import { getDateObject } from '../helpers/common';
+// import AddAdminModal from '../components/atoms/AddAdminModal';
+import AddMerchantModal from '../components/atoms/AddMerchant';
+import EditIcon from '../assets/editIcon.svg';
+import DeleteIcon from '../assets/deleteIcon.svg';
+import { useParams } from 'react-router-dom';
+import { AuthContext } from '../Context/authContext';
+import expenseService from '../services/expenseService';
+import { getDateObject } from '../helpers/common';
 
-const products_data = [
-  {
-    createdAt: '2024 - 07 - 28',
-    email: 'adil123@gmail.com',
-    roles: 'INSIFR_ADMIN',
-  },
-  {
-    createdAt: '2024 - 07 - 28',
-    email: 'johnduo@gmail.com',
-    roles: 'SUPER_ADMIN',
-  },
-  {
-    createdAt: '2024 - 07 - 28',
-    email: 'adil123@gmail.com',
-    roles: 'INSIFR_ADMIN',
-  },
-  {
-    createdAt: '2024 - 07 - 28',
-    email: 'johnduo@gmail.com',
-    roles: 'DEVELOPER_SUPER_ADMIN',
-  },
-  {
-    createdAt: '2024 - 07 - 28',
-    email: 'adil123@gmail.com',
-    roles: 'INSIFR_ADMIN',
-  },
-  {
-    createdAt: '2024 - 07 - 28',
-    email: 'johnduo@gmail.com',
-    roles: 'SUPER_ADMIN',
-  },
-  {
-    createdAt: '2024 - 07 - 28',
-    email: 'johnduo@gmail.com',
-    roles: 'DEVELOPER_SUPER_ADMIN',
-  },
-  {
-    createdAt: '2024 - 07 - 28',
-    email: 'adil123@gmail.com',
-    roles: 'INSIFR_ADMIN',
-  },
-  {
-    createdAt: '2024 - 07 - 28',
-    email: 'adil123@gmail.com',
-    roles: 'INSIFR_ADMIN',
-  },
-  {
-    createdAt: '2024 - 07 - 28',
-    email: 'johnduo@gmail.com',
-    roles: 'SUPER_ADMIN',
-  },
-  {
-    createdAt: '2024 - 07 - 28',
-    email: 'adil123@gmail.com',
-    roles: 'INSIFR_ADMIN',
-  },
-];
 export const FilterOptions = [
   {
     value: 'all',
@@ -88,7 +36,8 @@ export const FilterOptions = [
     label: 'Super_Admin',
   },
 ];
-const AdminTable = () => {
+const Expenses = () => {
+  const { _id } = useParams();
   const [searchQuery, setSearchQuery] = useState({
     page: 1,
     pageSize: 10,
@@ -96,11 +45,12 @@ const AdminTable = () => {
     startDate: '',
     endDate: '',
     filterRoles: '',
+    propertyId: _id,
   });
 
-  const { refetch, hasPermission, fetch } = useContextHook(AuthContext, ['refetch', 'hasPermission', 'fetch']);
+  const { refetch, fetch } = useContextHook(AuthContext, ['refetch', 'fetch']);
 
-  const { admins_data, admins_loading } = adminService.GetAdmins(searchQuery, fetch);
+  const { expenses_data, expenses_loading } = expenseService.GetExpenses(searchQuery, fetch);
 
   const [deleteAdminModal, setDeleteAdminModal] = useState(false);
   const [deleteAdminSuccessModal, setDeleteAdminSuccessModal] = useState(false);
@@ -126,14 +76,10 @@ const AdminTable = () => {
       });
     }
   };
-  const onDeleteAdmin = async id => {
+  const onDeleteExpense = async id => {
     try {
-      await adminService.deleteAdmin(id);
+      await expenseService.deleteExpense(id);
       refetch();
-      Toast({
-        message: 'Admin deleted successfully',
-        type: 'success',
-      });
     } catch (ex) {
       Toast({
         type: 'error',
@@ -142,14 +88,14 @@ const AdminTable = () => {
     }
   };
   const handleDeleteAdminModal = () => {
-    onDeleteAdmin(updateAdmin.id);
+    onDeleteExpense(updateAdmin._id);
     setDeleteAdminModal(false);
     setDeleteAdminSuccessModal(true);
   };
 
   const handleForcedLogoutModal = async () => {
     setForcedLogoutModal(false);
-    onLogout(updateAdmin.id);
+    // onLogout(updateAdmin._id);
     setForcedLogoutSuccessModal(true);
   };
 
@@ -171,84 +117,48 @@ const AdminTable = () => {
           </MenuButton>
         }
         transition>
-        {/* {hasPermission('admins.edit') && ( */}
         <MenuItems
           onClick={() => {
             setEditAdminModal(true);
             setUpdateAdmin(_);
           }}>
-          <img src={EditIcon} alt="EditIcon" /> Edit Admin
+          <img src={EditIcon} alt="EditIcon" /> Edit Expense
         </MenuItems>
-        {/* )}
-        {hasPermission('admins.updatepassword') && ( */}
-        <MenuItems
-          onClick={() => {
-            setUpdatePasswordModal(true);
-            setUpdateAdmin(_);
-          }}>
-          <MdOutlinePassword /> Update Password
-        </MenuItems>
-        {/* )}
-        {hasPermission('admins.delete') && ( */}
         <MenuItems
           onClick={() => {
             setDeleteAdminModal(true);
             setUpdateAdmin(_);
           }}>
-          <img src={DeleteIcon} alt="DeleteIcon" /> Delete Admin
+          <img src={DeleteIcon} alt="DeleteIcon" /> Delete Expense
         </MenuItems>
-        {/* )}
-        {hasPermission('admins.forcelogout') && ( */}
-        <MenuItems
-          onClick={() => {
-            setForcedLogoutModal(true);
-            setUpdateAdmin(_);
-          }}>
-          <ImSwitch /> Forced Logout
-        </MenuItems>
-        {/* )} */}
       </MenuMain>
     </div>
   );
 
-  const { totalCount, admins_rows } = useMemo(
+  const { totalCount, totalAmount, admins_rows } = useMemo(
     () => ({
-      admins_rows: admins_data?.admins?.map(_ => [
-        format(getDateObject(_.created_at), 'yyyy-MM-dd'),
-        // _?.createdAt || '------------',
-        _?.email || '------------',
-        // _?.roles || '------------',
-        _.roles?.length > 0 ? _.roles.map(__ => __.type).join(', ') : '------------',
+      admins_rows: expenses_data?.data?.map(_ => [
+        format(getDateObject(_?.createdAt), 'yyyy-MM-dd'),
+        _?.title ?? '------------',
+        _?.paidTo ?? '------------',
+        _?.amount ?? '------------',
         actionBtn(_),
       ]),
-      totalCount: admins_data?.totalItems,
+      totalCount: expenses_data.totalItems,
+      totalAmount: expenses_data.totalAmount,
     }),
-    [admins_data],
+    [expenses_data],
   );
-  const columnNamess = [`Create at`, `Email Address`, `Roles`, `Action`];
-  const { roles_data } = adminService.GetRoles(searchQuery, fetch);
+  const columnNamess = [`Created at`, `Expense Title`, `Paid To`, `Amount (rs)`, `Action`];
 
-  const rolesOptions = useMemo(
-    () => [
-      {
-        label: 'All',
-        value: '',
-      },
-      ...roles_data?.roles.map(({ type }) => ({
-        label: type,
-        value: type,
-      })),
-    ],
-    [roles_data],
-  );
   return (
     <>
       {/* ------------------  Modal  ---------------- */}
 
       <CenterModal open={deleteAdminModal} setOpen={setDeleteAdminModal} width="580">
         <DeleteModal
-          heading="Delete Admin"
-          para="Are you sure you want to delete this admin? all the data will be lost."
+          heading="Delete Expense"
+          para="Are you sure you want to delete this expense? The data will be lost."
           btnText="Yes, Delete"
           btnClick={handleDeleteAdminModal}
         />
@@ -256,7 +166,7 @@ const AdminTable = () => {
 
       <CenterModal open={deleteAdminSuccessModal} setOpen={setDeleteAdminSuccessModal} iscloseAble={false} width="580">
         <SuccessModal
-          heading="Admin Deleted Successfully"
+          heading="Expense Deleted Successfully"
           btnText="Go Back"
           btnClick={() => {
             setDeleteAdminSuccessModal(false);
@@ -267,7 +177,7 @@ const AdminTable = () => {
       <CenterModal open={forcedLogoutModal} setOpen={setForcedLogoutModal} width="580">
         <DeleteModal
           heading="Forced Logout"
-          para="Are you sure you want to forced logout this admin? all the data will be lost."
+          para="Are you sure you want to forced logout this merchant? all the data will be lost."
           btnText="Yes, Logout"
           btnClick={() => {
             handleForcedLogoutModal();
@@ -282,7 +192,7 @@ const AdminTable = () => {
         iscloseAble={false}
         width="580">
         <SuccessModal
-          heading="Admin Forced Logout Successfully"
+          heading="Merchant Forced Logout Successfully"
           btnText="Go Back"
           btnClick={() => {
             setForcedLogoutSuccessModal(false);
@@ -291,7 +201,7 @@ const AdminTable = () => {
         />
       </CenterModal>
 
-      <CenterModal open={updatePasswordModal} setOpen={setUpdatePasswordModal} title="Update Password" width="666">
+      {/* <CenterModal open={updatePasswordModal} setOpen={setUpdatePasswordModal} title="Update Password" width="666">
         <AddAdminModal
           onSubmit={handleUpdatePassword}
           data={updateAdmin}
@@ -299,24 +209,24 @@ const AdminTable = () => {
           onlyPassword
           btnText={'Update Password'}
         />
-      </CenterModal>
+      </CenterModal> */}
 
-      <CenterModal open={editAdminModal} setOpen={setEditAdminModal} title="Edit Admin" width="666">
-        <AddAdminModal
+      <CenterModal open={editAdminModal} setOpen={setEditAdminModal} title="Edit Expense" width="666">
+        <AddMerchantModal
           onSubmit={() => setEditAdminModal(false)}
           data={updateAdmin}
           setData={setUpdateAdmin}
-          btnText={'Update Admin'}
+          btnText="Save Changes"
         />
       </CenterModal>
 
-      <CenterModal open={addAdminModal} setOpen={setAddAdminModal} title="Add New Admin" width="666">
-        <AddAdminModal onSubmit={handleAddAdmin} btnText={'Add Admin'} />
+      <CenterModal open={addAdminModal} setOpen={setAddAdminModal} title="Add New Expense" width="666">
+        <AddMerchantModal onSubmit={handleAddAdmin} btnText={'Add Expense'} propertyId={_id} />
       </CenterModal>
 
       <CenterModal open={addAdminSuccessModal} setOpen={setAddAdminSuccessModal} iscloseAble={false} width="580">
         <SuccessModal
-          heading="Admin Added Successfully"
+          heading="Expense Added Successfully"
           btnText="Go Back"
           btnClick={() => setAddAdminSuccessModal(false)}
         />
@@ -337,14 +247,18 @@ const AdminTable = () => {
           currentPage={searchQuery.page}
           pageSize={searchQuery.pageSize}
           totalCount={totalCount}
-          tableHeading="Admins"
-          placeholder="Search Admins"
+          tableHeading={
+            <div className="total-amount">
+              Expenses
+              <span>( Total Amount: Rs. {totalAmount} )</span>
+            </div>
+          }
+          placeholder="Search expenses"
           setSearchText={setSearchQuery}
           // content={
           //   <Select
-          //     inputSm
-          //     className="filter"
           //     placeholder="All"
+          //     width="140px"
           //     noMargin
           //     options={rolesOptions}
           //     onChange={e =>
@@ -357,14 +271,14 @@ const AdminTable = () => {
           // }
           btnText={
             <Button sm onClick={() => setAddAdminModal(true)}>
-              + Add Admin
+              + Add Expense
             </Button>
           }>
-          <Table width={1024} rowsData={admins_rows} loading={admins_loading} columnNames={columnNamess} noPadding />
+          <Table width={1024} rowsData={admins_rows} columnNames={columnNamess} noPadding loading={expenses_loading} />
         </TableLayout>
       </AdminTableWrapper>
     </>
   );
 };
 
-export default AdminTable;
+export default Expenses;

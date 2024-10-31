@@ -1,6 +1,6 @@
 import React from 'react';
 import { SuccessModalWrapper } from './SuccessModal.style';
-import Tick from '../../../assets/tick.svg';
+import Tick from '../../../assets/tick.png';
 import Button from '../../molecules/Button';
 
 const SuccessModal = ({ img, heading, para, btnText, btnClick }) => {

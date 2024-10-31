@@ -1,76 +1,50 @@
-import React from 'react';
-import { FormContent, MainWrapperForm } from './Login.styles';
+import React, { useState } from 'react';
+import OnboardingTemplate from '../OnboardingTemplate';
+import { FormContent } from './Login.styles';
 import Button from '../../molecules/Button';
 import Form, { useForm } from '../../molecules/Form';
 import Field from '../Field';
 import { useContextHook } from 'use-context-hook';
 import { AuthContext } from '../../../Context/authContext';
 import Layout from '../../Layout';
-import Select from '../../molecules/Select';
-import Logo from '../../../assets/Logo.svg';
-import { useNavigate } from 'react-router-dom';
-export const typeOptions = [
-  {
-    value: 'admin',
-    label: 'Admin',
-  },
-  {
-    value: 'merchant',
-    label: 'Merchant',
-  },
-];
 
 function Login() {
   const [form] = useForm();
 
-  const { onLogin, user_loading } = useContextHook(AuthContext, v => ({
+  const { onLogin, loading_user } = useContextHook(AuthContext, v => ({
     onLogin: v.onLogin,
-    // user_loading: v.user_loading,
+    loading_user: v.loading_user,
   }));
-  // const navigate = useNavigate();
 
   const handleSubmit = e => {
-    onLogin({ ...e, type: 'admin' });
+    const payload = {
+      email: e?.email,
+      password: e?.password,
+      type: 'admin',
+    };
+    onLogin(payload);
   };
+
   return (
     <Layout showTemplate={false}>
-      <MainWrapperForm>
-        <div className="logo-wrapper">
-          <img src={Logo} alt="insifr-logo" />
-        </div>
-        <div className="text-wrapper">
-          <p>Please fill the details below to start with your INSIFR account</p>
-        </div>
+      <OnboardingTemplate>
         <FormContent>
+          <div className="heading-text">
+            <h1>Let&apos;s Sign you In</h1>
+            <p>Please fill the details below to start with your existing account.</p>
+          </div>
           <Form form={form} onSubmit={handleSubmit}>
-            {/* <Form.Item
-              label="Account type"
-              type="select"
-              rounded
-              name="type"
-              lg
-              placeholder="Type"
-              options={typeOptions}
-              $bgWhite
-              rules={[
-                {
-                  required: true,
-                  // message: 'Type is Required',
-                },
-              ]}>
-              <Field />
-            </Form.Item> */}
             <Form.Item
-              label="Email address"
+              label="Email Address"
               type="email"
               rounded
               name="email"
               lg
               placeholder="Enter your email address"
-              $bgWhite
               rules={[
                 {
                   required: true,
+                  message: 'Email is Required',
                 },
               ]}>
               <Field />
@@ -82,25 +56,23 @@ function Login() {
               name="password"
               lg
               placeholder="Password"
-              $bgWhite
               rules={[
                 {
                   required: true,
-                  // message: 'Password is Required',
+                  message: 'Password is Required',
                 },
               ]}>
               <Field />
             </Form.Item>
 
             <div className="btn-holder">
-              {/* <Button loader={user_loading} variant="white" width="256px">
+              <Button loader={loading_user} variant="white" width="256px">
                 Sign In!
-              </Button> */}
-              <Button variant="white">Sign in</Button>
+              </Button>
             </div>
           </Form>
         </FormContent>
-      </MainWrapperForm>
+      </OnboardingTemplate>
     </Layout>
   );
 }
