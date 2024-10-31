@@ -20,10 +20,13 @@ export const StyledSideBar = styled.div`
   flex-shrink: 0;
   /* overflow: hidden; */
   transition: 0.3s all ease-in-out;
+  @media (max-width: 576px) {
+    bottom: 90px !important;
+  }
   @media (max-width: 991px) {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     left: 15px;
-    bottom: 0;
+    bottom: 20px;
     transform: translateX(-200%);
     .aside-active & {
       transform: translateX(0%);
