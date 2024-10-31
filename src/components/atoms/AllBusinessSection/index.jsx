@@ -82,7 +82,7 @@ const AllBusinessSection = ({ searchQuery, currentPage = 1, pageSize = 10, total
 
       <CenterModal open={deleteSuccessModal} setOpen={setDeleteSuccessModal} iscloseAble={false} width="580">
         <SuccessModal
-          heading="Business Deactivated Successfully"
+          heading="Property Deleted Successfully"
           btnText="Go Back"
           btnClick={() => setDeleteSuccessModal(false)}
         />
